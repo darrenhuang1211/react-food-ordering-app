@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import HeaderCartButton from "./HeaderCartButton";
 
 import mealsImage from "../../assets/meals.jpg";
 
@@ -33,12 +34,16 @@ const MainImage = styled.div`
     }
 `;
 
+const cartButtonHandler = () => {
+    console.log("open cart");
+}
+
 const Header = props => {
     return (
         <React.Fragment>
             <StyledHeader>
                 <h1>ReactMeals</h1>
-                <button>Cart</button>
+                <HeaderCartButton onClick={cartButtonHandler}>Your cart</HeaderCartButton>
             </StyledHeader>
             <MainImage>
                 <img src={mealsImage} alt="A table with food"/>
