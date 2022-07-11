@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import CartIcon from "./CartIcon";
+import CartIcon from "../Cart/CartIcon";
 
 const StyledCartButton = styled.button`
    cursor: pointer;
