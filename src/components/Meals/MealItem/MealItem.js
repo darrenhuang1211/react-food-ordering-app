@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import MealItemForm from "./MealItemForm";
 
 const StyledMealItem = styled.li`
    display: flex;
@@ -34,11 +35,7 @@ const MealItem = props => {
             <div className="price">{formattedPrice}</div>
          </div>
          <div>
-            <form>
-               <label>Amount</label>
-               <input type="number"></input>
-               <button type="submit">+ Add</button>
-            </form>
+            <MealItemForm id={props.id}/>
          </div>
       </StyledMealItem>
    );
