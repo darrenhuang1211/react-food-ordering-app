@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import Card from "../UI/Card";
+import MealItem from "./MealItem";
 
 const mealsList = [
    {
@@ -54,16 +56,23 @@ const StyledMealsList = styled.section`
 
 const mealToElement = (meal) => {
    return (
-      <li key={meal.id}>{meal.name}</li>
+      <MealItem 
+         key={meal.id} 
+         name={meal.name}
+         description={meal.description}
+         price={meal.price}
+      />
    );
 };
 
 const AvailableMeals = props => {
    return (
-      <StyledMealsList>
-         <ul>
-            {mealsList.map(mealToElement)}
-         </ul>
+      <StyledMealsList className={props.className}>
+         <Card>
+            <ul>
+               {mealsList.map(mealToElement)}
+            </ul>
+         </Card>
       </StyledMealsList>
    );
 }
