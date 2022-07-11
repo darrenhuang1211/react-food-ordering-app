@@ -7,10 +7,10 @@ import Cart from "./components/Cart/Cart";
 function App() {
   return (
     <React.Fragment>
+      <Cart />
       <Header />
       <main>
         <Meals />
-        <Cart />
       </main>
     </React.Fragment>
   );

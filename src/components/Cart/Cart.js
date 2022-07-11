@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Card from "../UI/Card";
+import Modal from "../UI/Modal";
 
 const StyledCart = styled.div`
    .cart-items {
@@ -57,11 +57,11 @@ const Cart = props => {
       price: 22.99,
       amount: 2
    }].map(item => {
-      return <li>{item.name}</li>
+      return <li key={item.id}>{item.name}</li>
    })}</ul>
 
    return (
-      <Card>
+      <Modal>
          <StyledCart>
                {cartItems}
                <div className="total">
@@ -73,7 +73,7 @@ const Cart = props => {
                   <button className="button">Order</button>
                </div>
          </StyledCart>
-      </Card>
+      </Modal>
    );
 };
 
