@@ -50,7 +50,7 @@ const StyledCart = styled.div`
    }
 `;
 
-const Cart = props => {
+const Cart = ({onClose}) => {
    const cartItems = <ul className="cart-items">{[{
       id: "c1",
       name: "Sushi",
@@ -61,7 +61,7 @@ const Cart = props => {
    })}</ul>
 
    return (
-      <Modal>
+      <Modal onBackdropClick={onClose}>
          <StyledCart>
                {cartItems}
                <div className="total">
@@ -69,7 +69,7 @@ const Cart = props => {
                   <span>$100.00</span>
                </div>
                <div className="actions">
-                  <button className="button--alt">Close</button>
+                  <button className="button--alt" onClick={onClose}>Close</button>
                   <button className="button">Order</button>
                </div>
          </StyledCart>
