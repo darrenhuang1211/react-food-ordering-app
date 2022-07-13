@@ -24,18 +24,18 @@ const StyledMealItem = styled.li`
    }
 `;
 
-const MealItem = props => {
-   const formattedPrice = `$${props.price.toFixed(2)}`;
-
+const MealItem = ({id, name, description, price}) => {
+   const formattedPrice = `$${price.toFixed(2)}`;
+   
    return (
       <StyledMealItem>
          <div>
-            <h3>{props.name}</h3>
-            <div className="description">{props.description}</div>
+            <h3>{name}</h3>
+            <div className="description">{description}</div>
             <div className="price">{formattedPrice}</div>
          </div>
          <div>
-            <MealItemForm id={props.id}/>
+            <MealItemForm id={id}/>
          </div>
       </StyledMealItem>
    );

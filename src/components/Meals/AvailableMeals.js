@@ -54,24 +54,19 @@ const StyledMealsList = styled.section`
    }
 `;
 
-const mealToElement = (meal) => {
-   return (
-      <MealItem 
-         id={meal.id}
-         key={meal.id} 
-         name={meal.name}
-         description={meal.description}
-         price={meal.price}
-      />
-   );
-};
-
 const AvailableMeals = props => {
    return (
       <StyledMealsList className={props.className}>
          <Card>
             <ul>
-               {mealsList.map(mealToElement)}
+               {mealsList.map((meal) => (
+                  <MealItem 
+                     id={meal.id}
+                     key={meal.id}
+                     name={meal.name}
+                     description={meal.description}
+                     price={meal.price} />
+                  ))}
             </ul>
          </Card>
       </StyledMealsList>
