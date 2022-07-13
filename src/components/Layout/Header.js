@@ -34,16 +34,12 @@ const MainImage = styled.div`
     }
 `;
 
-const cartButtonHandler = () => {
-    console.log("open cart");
-}
-
-const Header = props => {
+const Header = ({onShowCart, onHideCart}) => {
     return (
         <React.Fragment>
             <StyledHeader>
                 <h1>ReactMeals</h1>
-                <HeaderCartButton onClick={cartButtonHandler}>Your cart</HeaderCartButton>
+                <HeaderCartButton onClick={onShowCart}>Your cart</HeaderCartButton>
             </StyledHeader>
             <MainImage>
                 <img src={mealsImage} alt="A table with food"/>
