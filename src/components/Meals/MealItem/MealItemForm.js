@@ -23,12 +23,25 @@ const StyledForm = styled.form`
 `;
 
 const MealItemForm = props => {
+   const submitHandler = event => {
+      const enteredNumber = document.getElementById('amount_' + props.id).value;
+      const amountNumber = +enteredNumber;
+   
+      event.preventDefault();
+
+      if (enteredNumber.trim().length === 0 || amountNumber < 1 || amountNumber > 5) {
+         return;
+      }
+
+      props.onAddToCart(amountNumber);
+   };
+
    return (
-      <StyledForm>
+      <StyledForm onSubmit={submitHandler}>
          <Input 
             label="Amount" 
             input={{
-               id: 'amount_' + props.id, // this changed!
+               id: 'amount_' + props.id,
                type: 'number',
                min: '1',
                max: '5',

@@ -9,7 +9,7 @@ const defaultCartState = {
 const cartReducer = (state, action) => {
    switch (action.type) {
       case 'ADD':
-         const updatedItems = state.item.concat(action.item);
+         const updatedItems = state.items.concat(action.item);
          const updatedTotalAmount = state.totalAmount + action.item.price * action.item.amount;
          return {items: updatedItems, totalAmount: updatedTotalAmount};
       default:
@@ -21,14 +21,7 @@ const CartProvider = props => {
    const [cartState, dispatchCartAction] = useReducer(cartReducer, defaultCartState);
 
    const addItemToCartHandler = (item) => {
-      const existingItem = this.items.find(currentItem => currentItem.id === item.id);
-
-      if (existingItem) {
-         existingItem.amount += item.amount;
-      }
-      else {
-         dispatchCartAction({type: "ADD", item: item});
-      }
+      dispatchCartAction({type: "ADD", item: item});
    };
 
    const removeItemFromCartHandler = (id) => {}
