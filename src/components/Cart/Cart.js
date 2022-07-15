@@ -11,7 +11,7 @@ const StyledCart = styled.div`
       margin: 0;
       padding: 0;
       max-height: 20rem;
-      overflow: scroll;
+      overflow: auto;
    }
 
    .total {
