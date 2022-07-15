@@ -1,5 +1,9 @@
+import { useContext } from "react";
 import styled from "styled-components";
+
 import Modal from "../UI/Modal";
+import CartItem from "./CartItem";
+import CartContext from "../../store/cart-context";
 
 const StyledCart = styled.div`
    .cart-items {
@@ -7,7 +11,7 @@ const StyledCart = styled.div`
       margin: 0;
       padding: 0;
       max-height: 20rem;
-      overflow: auto;
+      overflow: scroll;
    }
 
    .total {
@@ -51,13 +55,29 @@ const StyledCart = styled.div`
 `;
 
 const Cart = ({onClose}) => {
-   const cartItems = <ul className="cart-items">{[{
-      id: "c1",
-      name: "Sushi",
-      price: 22.99,
-      amount: 2
-   }].map(item => {
-      return <li key={item.id}>{item.name}</li>
+   const cartContext = useContext(CartContext);
+
+   const totalAmount = `$${cartContext.totalAmount.toFixed(2)}`;
+   const hasItems = cartContext.items.length > 0;
+
+   const addItemHandler = item => {
+      console.log("add");
+   };
+
+   const removeItemHandler = id => {
+      console.log("remove");
+   };
+
+   const cartItems = <ul className="cart-items">
+      {cartContext.items.map(item => {
+         return <CartItem 
+            key={item.id} 
+            name={item.name} 
+            price={item.price} 
+            amount={item.amount}
+            onAdd={addItemHandler.bind(null, item)}
+            onRemove={removeItemHandler.bind(null, item.id)}
+         />
    })}</ul>
 
    return (
@@ -66,11 +86,11 @@ const Cart = ({onClose}) => {
                {cartItems}
                <div className="total">
                   <span>Total Amount</span>
-                  <span>$100.00</span>
+                  <span>{totalAmount}</span>
                </div>
                <div className="actions">
                   <button className="button--alt" onClick={onClose}>Close</button>
-                  <button className="button">Order</button>
+                  {hasItems && <button className="button">Order</button>}
                </div>
          </StyledCart>
       </Modal>
