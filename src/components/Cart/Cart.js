@@ -61,11 +61,11 @@ const Cart = ({onClose}) => {
    const hasItems = cartContext.items.length > 0;
 
    const addItemHandler = item => {
-      console.log("add");
+      cartContext.addItem({...item, amount: 1});
    };
 
    const removeItemHandler = id => {
-      console.log("remove");
+      cartContext.removeItem(id);
    };
 
    const cartItems = <ul className="cart-items">
