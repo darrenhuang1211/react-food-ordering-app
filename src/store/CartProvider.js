@@ -7,31 +7,43 @@ const defaultCartState = {
 };
 
 const cartReducer = (state, action) => {
-   switch (action.type) {
-      case 'ADD':
-         const updatedTotalAmount = state.totalAmount + action.item.price * action.item.amount;
-         
-         const existingItemIndex = state.items.findIndex(item => item.id === action.item.id);
-         const existingCartItem = state.items[existingItemIndex];
+   if (action.type === 'ADD') {
+      const updatedTotalAmount = state.totalAmount + action.item.price * action.item.amount;
+      
+      const existingItemIndex = state.items.findIndex(item => item.id === action.item.id);
+      const existingCartItem = state.items[existingItemIndex];
 
-         let updatedItem;
-         let updatedItems;
+      let updatedItem;
+      let updatedItems;
 
-         if (existingCartItem) {
-            updatedItem = {
-               ...existingCartItem,
-               amount: existingCartItem.amount + action.item.amount
-            }
-            updatedItems = [...state.items];
-            updatedItems[existingItemIndex] = updatedItem;
+      if (existingCartItem) {
+         updatedItem = {
+            ...existingCartItem,
+            amount: existingCartItem.amount + action.item.amount
          }
-         else {
-            updatedItems = state.items.concat(action.item);
-         } 
-         return {items: updatedItems, totalAmount: updatedTotalAmount};
-      default:
-         throw new Error();
+         updatedItems = [...state.items];
+         updatedItems[existingItemIndex] = updatedItem;
+      }
+      else {
+         updatedItems = state.items.concat(action.item);
+      } 
+      return {items: updatedItems, totalAmount: updatedTotalAmount};
    }
+   if (action.type === 'REMOVE') {
+      const existingItemIndex = state.items.findIndex(item => item.id === action.id);
+
+      let updatedItems = [...state.items];
+      let updatedTotalAmount = state.totalAmount - state.items[existingItemIndex].price;
+      
+      if (updatedItems[existingItemIndex].amount === 1) {
+         updatedItems.splice(existingItemIndex, 1);
+      }
+      else {
+         updatedItems[existingItemIndex].amount--;
+      }
+      return {items: updatedItems, totalAmount: updatedTotalAmount};
+   }
+   throw new Error();
 };
 
 const CartProvider = props => {
@@ -41,7 +53,9 @@ const CartProvider = props => {
       dispatchCartAction({type: "ADD", item: item});
    };
 
-   const removeItemFromCartHandler = (id) => {}
+   const removeItemFromCartHandler = (id) => {
+      dispatchCartAction({type: "REMOVE", id: id});
+   };
 
    const cartContext = {
       items: cartState.items,
