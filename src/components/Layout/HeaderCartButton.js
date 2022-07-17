@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 
 import CartIcon from "../Cart/CartIcon";
@@ -41,9 +41,7 @@ const StyledCartButton = styled.button`
       background-color: #92320c;
    }
    
-   .bump {
-      animation: bump 300ms ease-out;
-   }
+   animation: ${props => props.bump ? "bump 300ms ease-out" : ""};
    
    @keyframes bump {
       0% {
@@ -67,12 +65,31 @@ const StyledCartButton = styled.button`
 const HeaderCartButton = props => {
    const cartContext = useContext(CartContext);
 
+   const [buttonHighLighted, setButtonHighlighted] = useState(false);
+
    const numCartItems = cartContext.items.reduce((currentNum, item) => {
       return currentNum + item.amount;
    }, 0);
 
+   const {items} = cartContext;
+
+   useEffect(() => {
+      if (items.length === 0) {
+         return;
+      }
+      setButtonHighlighted(true);
+      
+      const timer = setTimeout(() => {
+         setButtonHighlighted(false);
+      }, 300);
+
+      return () => {
+         clearTimeout(timer);
+      };
+   }, [items]);
+
    return (
-      <StyledCartButton onClick={props.onClick}>
+      <StyledCartButton bump={buttonHighLighted} onClick={props.onClick}>
          <span className="icon">
             <CartIcon />
          </span>
